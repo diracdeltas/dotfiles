@@ -1,0 +1,83 @@
+~/.xmonad/xmonad.hs
+config file for xmonad
+
+mod-shift-return
+opens terminal
+
+mod-space
+cycles tiling algorithms
+
+mod-j / mod-k (mod-tab / shift-mod-tab)
+switch pane focus down / up
+
+mod-shift-j / mod-shift-k
+move panes down / up
+
+mod-return
+swap current window with master pane
+
+mod-comma / mod-space
+increase / decrease number of windows in master pane
+
+mod-h / mod-l
+shrink / widen master pane (use mod-space to toggle width /height mode)
+
+mod-button1
+float and move a window
+
+mod-t
+unfloat window (flatten)
+
+mod-button3
+resize window
+
+mod-button2
+bring floating window to top
+
+mod-shift-c
+kill window
+
+mod-shift-q
+quit xmonad
+
+mod-shift-p
+launch gmrun (if installed) preferred over dmenu
+
+mod-p
+launch dmenu (if installed)
+
+mod-(1-9)
+switch to workspaces 1-9
+
+mod-shift-(1-9)
+toss window to another workspace
+
+ghci ~/.xmonad/xmonad.hs
+test xmonad config for errors
+
+xmonad --recompile
+test xmonad config for errors
+
+ghci ~/.xmonad/xmonad.hs
+test config for errors
+
+xmonad --recompile
+test xmonad config for errors
+
+ghci ~/.xmonad/xmonad.hs
+test config for errors
+
+mod-q
+reload xmonad config
+
+ghc --make xmonad.hs
+compiles config script
+
+mod-n
+refresh viewed sizes
+
+mod-shift-space 
+reset default workspace setup
+
+mod-a / mod-z
+custom tile resizings

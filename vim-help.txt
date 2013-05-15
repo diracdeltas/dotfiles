@@ -1,0 +1,86 @@
+== Working with files ==
+
+:e filename :: open new file, use Tab to complete
+:w filename :: write
+:q          :: quit
+:x          :: write+quit, does not write if no changes
+
+
+== Moving around ==
+
+b  :: beginning of word
+e  :: end of word
+0  :: beginning of line
+$  :: end of line
+^  :: first non-whitespace char of a line
+gg :: start of file
+G  :: end of file
+:n :: jump to line n
+
+
+== Deleting text ==
+
+x  :: delete 1 under cursor
+X  :: delete 1 before cursor
+dd :: delete current line
+D  :: delete all in line after cursor
+d0 :: delete all in line before cursor
+dG :: delete all below
+dgg:: delete all above
+
+
+== Inserting and overwriting text ==
+
+i  :: insert before cursor
+I  :: insert to start of line
+A  :: append to the end of line
+o  :: open new line below and insert
+O  :: open new line above and insert
+R  :: replace rather than insert
+
+
+== Visual mode ==
+
+v  :: start highlighting char
+V  :: start highlighting lines
+y  :: yank selected
+p  :: put after cursor
+~  :: change case of selected
+>  :: indent selected
+<  :: unindent selected
+d  :: delete selected
+Y  :: yank current line
+
+
+== History ==
+
+u  :: undo 
+U  :: undo changes to current line
+c-r:: redo
+
+
+== Search and Replace ==
+
+/p :: search for pattern p
+n  :: scan for next match in same direction
+N  :: scan for next match in opposite direction
+
+:rs/foo/bar/a :: substitute foo with bar. 
+
+= r (range) =
+nothing :: current line only
+number  :: line number
+%       :: entire file
+
+= a (arguments) =
+g       :: all occurences in line
+i       :: ignore case
+I       :: don't ignore case
+c       :: confirm substiution
+
+= examples =
+:s/foo/bar/g  :: replace EVERY occurrence in current line
+:%s/foo/bar/g :: replace EVERY occurrence in file
+:%s/foo/bar/c :: replace first occurrence on each line, confirm
+
+
