@@ -25,6 +25,7 @@ def show_unread_emails():
                                      "(BODY[HEADER.FIELDS (SUBJECT FROM)])")
         header_data = response[1][0][1]
         msg = parser.parsestr(header_data)
+        print '================================\n\n'
         print msg
         imap_server.store(message_id, '-FLAGS', '\\Seen')
 
