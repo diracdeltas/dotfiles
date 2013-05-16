@@ -4,13 +4,34 @@ import imaplib
 from email.parser import HeaderParser
 import time
 import re
+import sys
 
-USR = ''  # your gmail account
-PWD = ''  # your gmail password
+USR = ''  # gmail address
+PWD = ''  # gmail password
 
+COLOR_CODES = {
+    'black':    '0;30',     'bright gray':  '0;37',
+    'blue':     '0;34',     'white':        '1;37',
+    'green':    '0;32',     'bright blue':  '1;34',
+    'cyan':     '0;36',     'bright green': '1;32',
+    'red':      '0;31',     'bright cyan':  '1;36',
+    'purple':   '0;35',     'bright red':   '1;31',
+    'yellow':   '0;33',     'bright purple':'1;35',
+    'dark gray':'1;30',     'bright yellow':'1;33',
+    'normal':   '0'
+}
+
+def write_color(text, color):
+    ctext = "\033[" + COLOR_CODES[color] + "m" + text + "\033[0m"
+    sys.stdout.write(ctext + '\n')
+
+def print_email(msg, colors):
+    items = msg.items()
+    for i in zip(items, colors):
+        line = i[0][0] + ':  ' + i[0][1]
+        write_color(line, i[1])
 
 def show_unread_emails():
-    """shows unread emails from the last hour"""
     parser = HeaderParser()
 
     imap_server = imaplib.IMAP4_SSL('imap.gmail.com', 993)
@@ -23,7 +44,7 @@ def show_unread_emails():
     for message_id in imap_server.search(None, query)[1][0].split(" "):
         try:
             response = imap_server.fetch(message_id,
-                                         "(BODY[HEADER.FIELDS (SUBJECT FROM)] X-GM-THRID)")
+                                         "(BODY[HEADER.FIELDS (SUBJECT FROM DATE)] X-GM-THRID)")
             imap_server.store(message_id, '-FLAGS', '\\Seen')
             id_data = response[1][0][0]
             header_data = response[1][0][1]
@@ -31,11 +52,12 @@ def show_unread_emails():
             thrid = re.compile('X-GM-THRID (\d+)').search(id_data).groups()[0]
             thurl = 'https://mail.google.com/mail/u/0/#inbox/' + '{0:x}'.format(int(thrid))
             print '===================================='
-            print thurl
-            print msg
+            write_color(thurl, 'cyan')
+            print_email(msg, ['blue', 'purple', 'green'])
         except:
             print "**No new messages**"
-
+            msg = None
+    return msg
 
 if __name__ == '__main__':
     show_unread_emails()
