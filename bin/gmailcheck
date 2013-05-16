@@ -3,14 +3,14 @@
 import imaplib
 from email.parser import HeaderParser
 import time
+import re
 
-
-USR = ''  # your gmail address
-PWD = ''  # password
+USR = ''  # your gmail account
+PWD = ''  # your gmail password
 
 
 def show_unread_emails():
-    """shows unread emails from past hour"""
+    """shows unread emails from the last hour"""
     parser = HeaderParser()
 
     imap_server = imaplib.IMAP4_SSL('imap.gmail.com', 993)
@@ -21,13 +21,20 @@ def show_unread_emails():
     query = '(X-GM-RAW "after:%d is:unread")' % th
 
     for message_id in imap_server.search(None, query)[1][0].split(" "):
-        response = imap_server.fetch(message_id,
-                                     "(BODY[HEADER.FIELDS (SUBJECT FROM)])")
-        header_data = response[1][0][1]
-        msg = parser.parsestr(header_data)
-        print '================================\n\n'
-        print msg
-        imap_server.store(message_id, '-FLAGS', '\\Seen')
+        try:
+            response = imap_server.fetch(message_id,
+                                         "(BODY[HEADER.FIELDS (SUBJECT FROM)] X-GM-THRID)")
+            imap_server.store(message_id, '-FLAGS', '\\Seen')
+            id_data = response[1][0][0]
+            header_data = response[1][0][1]
+            msg = parser.parsestr(header_data)
+            thrid = re.compile('X-GM-THRID (\d+)').search(id_data).groups()[0]
+            thurl = 'https://mail.google.com/mail/u/0/#inbox/' + '{0:x}'.format(int(thrid))
+            print '===================================='
+            print thurl
+            print msg
+        except:
+            print "**No new messages**"
 
 
 if __name__ == '__main__':
