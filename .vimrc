@@ -10,7 +10,7 @@ au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
 syntax on
 set background=dark
 if has("gui_running")
-	set guifont=Inconsolata\ 12
+	set guifont=Inconsolata\ 13
 endif
 
 let g:pymode_rope = 1
@@ -23,8 +23,8 @@ let g:pymode_doc_key = 'K'
 let g:pymode_lint = 1
 let g:pymode_lint_checker = "pyflakes,pep8"
 
-" Auto check on save
-let g:pymode_lint_write = 1
+" DON'T Auto check on save
+let g:pymode_lint_write = 0
 
 " Support virtualenv
 let g:pymode_virtualenv = 1
@@ -45,3 +45,4 @@ let g:molokai_original = 1
 
 set t_Co=256
 colorscheme molokai
+set shell=/bin/sh
