@@ -3,6 +3,20 @@ filetype off
 call pathogen#infect()
 call pathogen#helptags()
 
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set encoding=utf8
+set nobackup
+set nowb
+set noswapfile
+
+set expandtab
+set smarttab
+set tabstop=4
+set shiftwidth=4
+
 filetype indent plugin on
 syntax on
 set modeline
