@@ -1,5 +1,7 @@
 filetype off
 
+set nocompatible
+set t_Co=16
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -21,8 +23,12 @@ filetype indent plugin on
 syntax on
 set modeline
 au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
+au FileType javascript setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
+au FileType sh setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
+au BufNewFile,BufRead *.ejs set filetype=html
+
 syntax on
-set background=dark
+set background=dark " dark | light "
 if has("gui_running")
 	set guifont=Inconsolata\ 13
 endif
@@ -57,6 +63,12 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 let g:molokai_original = 1
 
-set t_Co=256
-colorscheme molokai
+colorscheme solarized
 set shell=/bin/sh
+
+" Highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+set cursorline
+set colorcolumn=80

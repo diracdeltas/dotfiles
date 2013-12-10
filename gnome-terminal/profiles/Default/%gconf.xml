@@ -1,29 +1,35 @@
 <?xml version="1.0"?>
 <gconf>
-	<entry name="font" mtime="1368644869" type="string">
+	<entry name="bold_color_same_as_fg" mtime="1386656215" type="bool" value="false"/>
+	<entry name="scroll_on_output" mtime="1386454439" type="bool" value="false"/>
+	<entry name="scrollback_unlimited" mtime="1386656215" type="bool" value="true"/>
+	<entry name="scrollbar_position" mtime="1386656215" type="string">
+		<stringvalue>hidden</stringvalue>
+	</entry>
+	<entry name="font" mtime="1386656215" type="string">
 		<stringvalue>Monospace 10</stringvalue>
 	</entry>
-	<entry name="use_system_font" mtime="1368644882" type="bool" value="true"/>
-	<entry name="use_theme_colors" mtime="1368645765" type="bool" value="false"/>
-	<entry name="background_darkness" mtime="1368593426" type="float" value="0"/>
-	<entry name="background_type" mtime="1348182724" type="string">
-		<stringvalue>solid</stringvalue>
+	<entry name="use_system_font" mtime="1386656215" type="bool" value="false"/>
+	<entry name="use_theme_colors" mtime="1386656215" type="bool" value="false"/>
+	<entry name="background_darkness" mtime="1386656272" type="float" value="0.80555558204650879"/>
+	<entry name="background_type" mtime="1386656215" type="string">
+		<stringvalue>transparent</stringvalue>
 	</entry>
 	<entry name="use_theme_background" mtime="1368644960" type="bool" value="false"/>
-	<entry name="palette" mtime="1368645428" type="string">
-		<stringvalue>#000000000000:#CCCC00000000:#4E4E9A9A0606:#C4C4A0A00000:#34346565A4A4:#757550507B7B:#060698209A9A:#D3D3D7D7CFCF:#555557575353:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC</stringvalue>
+	<entry name="palette" mtime="1386656215" type="string">
+		<stringvalue>#070736364242:#DCDC32322F2F:#858599990000:#B5B589890000:#26268B8BD2D2:#D3D336368282:#2A2AA1A19898:#EEEEE8E8D5D5:#00002B2B3636:#CBCB4B4B1616:#58586E6E7575:#65657B7B8383:#838394949696:#6C6C7171C4C4:#9393A1A1A1A1:#FDFDF6F6E3E3</stringvalue>
 	</entry>
-	<entry name="alternate_screen_scroll" mtime="1368593426" type="bool" value="true"/>
-	<entry name="background_color" mtime="1368645888" type="string">
-		<stringvalue>#1F921F921F92</stringvalue>
-	</entry>
-	<entry name="visible_name" mtime="1368593426" type="string">
-		<stringvalue>Default</stringvalue>
-	</entry>
-	<entry name="bold_color" mtime="1368593426" type="string">
+	<entry name="alternate_screen_scroll" mtime="1386656215" type="bool" value="true"/>
+	<entry name="background_color" mtime="1386656307" type="string">
 		<stringvalue>#000000000000</stringvalue>
 	</entry>
-	<entry name="foreground_color" mtime="1368645861" type="string">
-		<stringvalue>#FFFFFFFFFFFF</stringvalue>
+	<entry name="visible_name" mtime="1386656215" type="string">
+		<stringvalue>Default</stringvalue>
+	</entry>
+	<entry name="bold_color" mtime="1386656215" type="string">
+		<stringvalue>#7574504F7B7B</stringvalue>
+	</entry>
+	<entry name="foreground_color" mtime="1386656215" type="string">
+		<stringvalue>#838394949696</stringvalue>
 	</entry>
 </gconf>

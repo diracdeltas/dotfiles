@@ -111,3 +111,4 @@ alias gtfo='gnome-session-quit'
 alias xmonad-help='vim ~/xmonad-help.txt'
 alias vim-help='vim ~/vim-help.txt'
 alias tomsay='cowsay -f tom'
+alias tmux="TERM=screen-256color-bce tmux"
