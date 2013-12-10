@@ -28,7 +28,7 @@ au FileType sh setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
 au BufNewFile,BufRead *.ejs set filetype=html
 
 syntax on
-set background=dark " dark | light "
+set background=light
 if has("gui_running")
 	set guifont=Inconsolata\ 13
 endif
@@ -72,3 +72,6 @@ match ExtraWhitespace /\s\+$/
 
 set cursorline
 set colorcolumn=80
+hi Normal ctermbg=234
+hi Cursorline ctermbg=233
+hi ColorColumn ctermbg=235
