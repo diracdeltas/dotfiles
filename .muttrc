@@ -1,0 +1,72 @@
+set ssl_starttls=yes
+#set imap_force_ssl=no
+
+set spoolfile='imap://mail.riseup.net/INBOX'   # where my new mail is located
+
+set imap_user="zyan@riseup.net"
+set realname="yan"
+set imap_pass=""
+set imap_passive=yes
+set imap_servernoise=no
+set editor="vim"
+
+# Save sent mail in appropriately dated folders (same way pine does it, except that
+# mutt wont ask you every month if you want to move your mail and delete old saved
+# mailboxes (irritating when you have a couple years worth...)
+send-hook . "set record=imaps://mail.riseup.net/INBOX.Sent"
+set record ="imaps://mail.riseup.net/INBOX.Sent"
+
+# Exim does not remove Bcc headers
+#unset write_bcc
+# Postfix and qmail use Delivered-To for detecting loops
+unset bounce_delivered
+
+# don't add the hostname to the From header
+unset use_domain
+unset user_agent
+# don't generate a From header
+unset use_from
+bind index G imap-fetch-mail
+
+# crypto
+set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
+set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
+set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
+set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
+set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
+set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0xFAC78CF7 -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0xFAC78CF7 -- -r %r -- %f"
+set pgp_import_command="gpg --no-verbose --import -v %f"
+set pgp_export_command="gpg --no-verbose --export --armor %r"
+set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
+set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r" 
+set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r" 
+
+# specify the uid to use when encrypting/signing
+set pgp_sign_as=0xFAC78CF7
+
+# this set the number of seconds to keep in memory the passpharse used to encrypt/sign
+# the more the less secure it will be
+set pgp_timeout=60
+
+# it's a regexp used against the GPG output: if it matches some line of the output
+# then mutt considers the message a good signed one (ignoring the GPG exit code)
+set pgp_good_sign="^gpg: Good signature from"
+
+# mutt uses by default PGP/GPG to sign/encrypt messages
+# if you want to use S-mime instead set the smime_is_default variable to yes
+
+# automatically sign all outgoing messages
+set crypt_autosign=yes
+# sign only replies to signed messages
+# set crypt_replysign
+
+# automatically encrypt outgoing messages
+# set crypt_autoencrypt=yes
+# encrypt only replies to signed messages
+# set crypt_replyencrypt=yes
+# encrypt and sign replies to encrypted messages
+set crypt_replysignencrypted=yes
+
+# automatically verify the sign of a message when opened
+set crypt_verify_sig=yes
