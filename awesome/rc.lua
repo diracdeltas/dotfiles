@@ -9,6 +9,8 @@ require("awful.rules")
 require("beautiful")
 require("naughty")
 
+require("debian.menu")
+
 -- {{{ Error handling
 -- Startup
 if awesome.startup_errors then
@@ -38,6 +40,7 @@ terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod1"
+altkey = "Mod4"
 
 -- Custom widgets
 require("wi")
@@ -94,7 +97,7 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = {
   { "awesome", myawesomemenu, beautiful.awesome_icon },
-  { "open terminal", terminal }
+  { "Debian", debian.menu.Debian_menu.Debian },
 } })
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
@@ -185,9 +188,6 @@ for s = 1, screen.count() do
     },
     volspacer, volbar.widget, volicon, spacer,
     batbar.widget, baticon, spacer,
-    pacwidget, pacicon, spacer,
-    mpdwidget, mpdicon, spacer,
-    mytasklist[s],
     layout = awful.widget.layout.horizontal.rightleft
   }
 
@@ -195,14 +195,13 @@ for s = 1, screen.count() do
   mygraphbox[s] = awful.wibox({ position = "bottom", height = 16, screen = s,
     border_width = 1, border_color = beautiful.bg_widget })
   mygraphbox[s].widgets = {
-    mylauncher, spacer, spacer, spacer,
-    cpufreq, cpugraph0.widget, cpupct0, cpugraph1.widget, cpupct1,
-    cpugraph2.widget, cpupct2, tab,
-    memused, membar.widget, mempct, tab,
-    swapused, swapbar.widget, swappct, tab,
-    rootfsused, rootfsbar.widget, rootfspct, tab,
-    txwidget, upgraph.widget, upwidget, tab,
-    rxwidget, downgraph.widget, downwidget, tab,
+    mylauncher, tab,
+    cpuwidget, tab,
+    memused, mempct, tab,
+    swapused, swappct, tab,
+    rootfsused, rootfspct, tab,
+    wlanwidget, tab, ethwidget, tab,
+    wifiwidget, tab, wifiicon,
     layout = awful.widget.layout.horizontal.leftright,
     {
       s == 1 and mysystray or nil,
@@ -219,12 +218,12 @@ globalkeys = awful.util.table.join(
   awful.key({ modkey, }, "Right", awful.tag.viewnext ),
   awful.key({ modkey, }, "Escape", awful.tag.history.restore),
 
-  awful.key({ altkey, }, "Tab",
+  awful.key({ modkey, }, "k",
     function ()
       awful.client.focus.byidx( 1)
       if client.focus then client.focus:raise() end
     end),
-  awful.key({ altkey, "Shift" }, "Tab",
+  awful.key({ modkey, }, "j",
     function ()
       awful.client.focus.byidx(-1)
       if client.focus then client.focus:raise() end
@@ -252,8 +251,8 @@ globalkeys = awful.util.table.join(
 
   awful.key({ modkey, }, "l", function() awful.tag.incmwfact( 0.015) end),
   awful.key({ modkey, }, "h", function() awful.tag.incmwfact(-0.015) end),
-  awful.key({ modkey, }, "j", function() awful.client.incwfact( 0.03) end),
-  awful.key({ modkey, }, "k", function() awful.client.incwfact(-0.03) end),
+  awful.key({ altkey, }, "j", function() awful.client.incwfact( 0.03) end),
+  awful.key({ altkey, }, "k", function() awful.client.incwfact(-0.03) end),
   awful.key({ modkey, "Shift" }, "h", function() awful.tag.incnmaster( 1) end),
   awful.key({ modkey, "Shift" }, "l", function() awful.tag.incnmaster(-1) end),
   awful.key({ modkey, "Control" }, "h", function() awful.tag.incncol( 1) end),
@@ -314,11 +313,11 @@ clientkeys = awful.util.table.join(
   awful.key({ modkey, }, "f", function(c) c.fullscreen = not c.fullscreen end),
   awful.key({ altkey, }, "F4", function(c) c:kill() end),
   awful.key({ modkey, "Shift" }, "c", function(c) c:kill() end),
-  awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle ),
+  awful.key({ modkey, }, "t", awful.client.floating.toggle ),
   awful.key({ modkey  }, "Return", function(c) c:swap(awful.client.getmaster()) end),
   awful.key({ modkey, }, "o", awful.client.movetoscreen ),
   awful.key({ modkey, "Shift" }, "r", function(c) c:redraw() end),
-  awful.key({ modkey, }, "t", function(c) c.ontop = not c.ontop end),
+  awful.key({ modkey, "Control" }, "space", function(c) c.ontop = not c.ontop end),
   awful.key({ modkey, }, "n", function(c) c.minimized = not c.minimized end),
 
   -- Maximize

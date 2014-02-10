@@ -5,16 +5,16 @@
 
 vicious = require("vicious")
 
-graphwidth  = 120
-graphheight = 20
-pctwidth    = 40
+graphwidth  = 50
+graphheight = 12
+pctwidth    = 30
 netwidth    = 100
 
 -- {{{ SPACERS
 spacer = widget({ type = "textbox" })
 spacer.text = " "
 tab = widget({ type = "textbox" })
-tab.text = "       "
+tab.text = " :: "
 volspacer = widget({ type = "textbox" })
 volspacer.text = " "
 -- }}}
@@ -24,69 +24,8 @@ volspacer.text = " "
 vicious.cache(vicious.widgets.cpu)
 vicious.cache(vicious.widgets.cpuinf)
 
--- Core 0 freq
-cpufreq = widget({ type = "textbox" })
-vicious.register(cpufreq, vicious.widgets.cpuinf,
-  function(widget, args)
-    return string.format("<span color='" .. beautiful.fg_em .. "'>cpu</span>%1.1fGHz", args["{cpu0 ghz}"])
-  end, 3000)
-
--- Core 0 graph
-cpugraph0 = awful.widget.graph()
-cpugraph0:set_width(graphwidth):set_height(graphheight)
-cpugraph0:set_background_color(beautiful.bg_widget)
-cpugraph0:set_border_color(nil)
-cpugraph0:set_border_color(beautiful.bg_widget)
-cpugraph0:set_gradient_colors({
-  beautiful.fg_end_widget,
-  beautiful.fg_end_widget,
-  beautiful.fg_center_widget
-})
-cpugraph0:set_gradient_angle(0)
-vicious.register(cpugraph0, vicious.widgets.cpu, "$2")
-
--- Core 0 %
-cpupct0 = widget({ type = "textbox" })
-cpupct0.width = pctwidth
-vicious.register(cpupct0, vicious.widgets.cpu, "$2%", 2)
-
--- Core 1 graph
-cpugraph1 = awful.widget.graph()
-cpugraph1:set_width(graphwidth):set_height(graphheight)
-cpugraph1:set_background_color(beautiful.bg_widget)
-cpugraph1:set_border_color(nil)
-cpugraph1:set_border_color(beautiful.bg_widget)
-cpugraph1:set_gradient_colors({
-  beautiful.fg_end_widget,
-  beautiful.fg_end_widget,
-  beautiful.fg_center_widget
-})
-cpugraph1:set_gradient_angle(0)
-vicious.register(cpugraph1, vicious.widgets.cpu, "$3")
-
--- Core 1 %
-cpupct1 = widget({ type = "textbox" })
-cpupct1.width = pctwidth
-vicious.register(cpupct1, vicious.widgets.cpu, "$3%", 2)
-
--- Core 2 graph
-cpugraph2 = awful.widget.graph()
-cpugraph2:set_width(graphwidth):set_height(graphheight)
-cpugraph2:set_background_color(beautiful.bg_widget)
-cpugraph2:set_border_color(nil)
-cpugraph2:set_border_color(beautiful.bg_widget)
-cpugraph2:set_gradient_colors({
-  beautiful.fg_end_widget,
-  beautiful.fg_end_widget,
-  beautiful.fg_center_widget
-})
-cpugraph2:set_gradient_angle(0)
-vicious.register(cpugraph2, vicious.widgets.cpu, "$4")
-
--- Core 2 %
-cpupct2 = widget({ type = "textbox" })
-cpupct2.width = pctwidth
-vicious.register(cpupct2, vicious.widgets.cpu, "$4%", 2)
+cpuwidget = widget({ type = "textbox" })
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1%")
 
 -- }}}
 
@@ -99,19 +38,6 @@ memused = widget({ type = "textbox" })
 vicious.register(memused, vicious.widgets.mem,
   "<span color='" .. beautiful.fg_em .. "'>ram</span>$2MB", 5)
 
--- Ram bar
-membar = awful.widget.progressbar()
-membar:set_vertical(false):set_width(graphwidth):set_height(graphheight)
-membar:set_ticks(false):set_ticks_size(2)
-membar:set_background_color(beautiful.bg_widget)
-membar:set_border_color(nil)
-membar:set_gradient_colors({
-  beautiful.fg_widget,
-  beautiful.fg_center_widget,
-  beautiful.bg_widget
-})
-vicious.register(membar, vicious.widgets.mem, "$1", 13)
-
 -- Ram %
 mempct = widget({ type = "textbox" })
 mempct.width = pctwidth
@@ -121,19 +47,6 @@ vicious.register(mempct, vicious.widgets.mem, "$1%", 5)
 swapused = widget({ type = "textbox" })
 vicious.register(swapused, vicious.widgets.mem,
   "<span color='" .. beautiful.fg_em .. "'>swap</span>$6MB", 5)
-
--- Swap bar
-swapbar = awful.widget.progressbar()
-swapbar:set_vertical(false):set_width(graphwidth):set_height(graphheight)
-swapbar:set_ticks(false):set_ticks_size(2)
-swapbar:set_background_color(beautiful.bg_widget)
-swapbar:set_border_color(nil)
-swapbar:set_gradient_colors({
-  beautiful.fg_widget,
-  beautiful.fg_center_widget,
-  beautiful.bg_widget
-})
-vicious.register(swapbar, vicious.widgets.mem, "$5", 13)
 
 -- Swap %
 swappct = widget({ type = "textbox" })
@@ -149,19 +62,6 @@ rootfsused = widget({ type = "textbox" })
 vicious.register(rootfsused, vicious.widgets.fs,
   "<span color='" .. beautiful.fg_em .. "'>sdd</span>${/ used_gb}GB", 97)
 
--- Root bar
-rootfsbar = awful.widget.progressbar()
-rootfsbar:set_vertical(false):set_width(graphwidth):set_height(graphheight)
-rootfsbar:set_ticks(false):set_ticks_size(2)
-rootfsbar:set_background_color(beautiful.bg_widget)
-rootfsbar:set_border_color(nil)
-rootfsbar:set_gradient_colors({
-  beautiful.fg_widget,
-  beautiful.fg_center_widget,
-  beautiful.bg_widget
-})
-vicious.register(rootfsbar, vicious.widgets.fs, "${/ used_p}", 97)
-
 -- Root %
 rootfspct = widget({ type = "textbox" })
 rootfspct.width = pctwidth
@@ -172,52 +72,31 @@ vicious.register(rootfspct, vicious.widgets.fs, "${/ used_p}%", 97)
 -- Cache
 vicious.cache(vicious.widgets.net)
 
--- TX
-txwidget = widget({ type = "textbox" })
-vicious.register(txwidget, vicious.widgets.net,
-  "<span color='" .. beautiful.fg_em .. "'>up</span>${eth0 tx_mb}MB", 19)
+wlanwidget = widget({ type = "textbox" })
+vicious.register(wlanwidget, vicious.widgets.net, '<span color="#CC9393">${wlan0 down_kb}k/s</span> <span color="#7F9F7F">${wlan0 up_kb}k/s</span>', 3)
+ethwidget = widget({ type = "textbox" })
+vicious.register(ethwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}k/s</span> <span color="#7F9F7F">${eth0 up_kb}k/s</span>', 3)
 
--- Up graph
-upgraph = awful.widget.graph()
-upgraph:set_width(graphwidth):set_height(graphheight)
-upgraph:set_background_color(beautiful.bg_widget)
-upgraph:set_border_color(nil)
-upgraph:set_gradient_colors({
-  beautiful.fg_end_widget,
-  beautiful.fg_end_widget,
-  beautiful.fg_center_widget
-})
-upgraph:set_gradient_angle(0)
-vicious.register(upgraph, vicious.widgets.net, "${eth0 up_kb}")
+-- wifi
+wifiwidget = widget({ type = "textbox" })
+vicious.register(wifiwidget, vicious.widgets.wifi, '${ssid}', 3, "wlan0")
 
--- Up speed
-upwidget = widget({ type = "textbox" })
-upwidget.width = netwidth
-vicious.register(upwidget, vicious.widgets.net, "${eth0 up_kb}k/s", 2)
-
--- RX
-rxwidget = widget({ type = "textbox" })
-vicious.register(rxwidget, vicious.widgets.net,
-  "<span color='" .. beautiful.fg_em .. "'>down</span>${eth0 rx_mb}MB", 17)
-
--- Down graph
-downgraph = awful.widget.graph()
-downgraph:set_width(graphwidth):set_height(graphheight)
-downgraph:set_background_color(beautiful.bg_widget)
-downgraph:set_border_color(nil)
-downgraph:set_gradient_colors({
-  beautiful.fg_end_widget,
-  beautiful.fg_end_widget,
-  beautiful.fg_center_widget
-})
-downgraph:set_gradient_angle(0)
-vicious.register(downgraph, vicious.widgets.net, "${eth0 down_kb}")
-
--- Down speed
-downwidget = widget({ type = "textbox" })
-downwidget.width = netwidth
-vicious.register(downwidget, vicious.widgets.net, "${eth0 down_kb}k/s", 2)
--- }}}
+wifiicon = widget({ type = "imagebox" })
+vicious.register(wifiicon, vicious.widgets.wifi,
+    function (widget, args)
+        link = args['{link}']
+        -- wifiicon.visible = true  -- didnt help
+        if link > 70 then
+            wifiicon.image=image(beautiful.widget_wifi_hi)
+        elseif link > 30 and link <= 70 then
+            wifiicon.image=image(beautiful.widget_wifi_mid)
+        elseif link > 0 and link <= 30 then
+            wifiicon.image=image(beautiful.widget_wifi_low)
+        else
+            wifiicon.image=image(beautiful.widget_wifi_no)
+        end
+    end,
+        3, "wlan0")
 
 -- {{{ WEATHER
 weather = widget({ type = "textbox" })
