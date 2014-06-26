@@ -28,7 +28,7 @@ au FileType sh setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
 au BufNewFile,BufRead *.ejs set filetype=html
 
 syntax on
-set background=light
+set background=dark
 if has("gui_running")
 	set guifont=Inconsolata\ 13
 endif
@@ -36,8 +36,8 @@ endif
 let g:pymode_rope = 1
 
 " Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
+" let g:pymode_doc = 1
+" let g:pymode_doc_key = 'K'
 
 "Linting
 let g:pymode_lint = 1
@@ -63,7 +63,8 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 let g:molokai_original = 1
 
-colorscheme solarized
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid
 set shell=/bin/sh
 
 " Highlight trailing whitespace
@@ -72,6 +73,8 @@ match ExtraWhitespace /\s\+$/
 
 set cursorline
 set colorcolumn=80
-hi Normal ctermbg=234
-hi Cursorline ctermbg=233
-hi ColorColumn ctermbg=235
+
+hi CursorLine cterm=NONE ctermbg=darkgrey
+
+set omnifunc=syntaxcomplete#Complete
+let g:NERDTreeWinSize = 29
