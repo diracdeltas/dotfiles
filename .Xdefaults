@@ -24,12 +24,13 @@ URxvt.loginShell:           true
 URxvt.saveLines:            50
 URxvt.internalBorder:       3
 URxvt.lineSpace:            0
+URxvt.transparent:          false
 
 ! Fonts
 URxvt.allow_bold:           false
 /* URxvt.font:                 -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
-URxvt*font: xft:Monospace:pixelsize=14
-URxvt*boldFont: xft:Monospace:pixelsize=14
+URxvt*font: xft:Bitstream Vera Sans Mono:pixelsize=15
+URxvt*boldFont: xft:Bitstream Vera Sans Mono:pixelsize=15
 
 ! Fix font space
 URxvt*letterSpace: -1
@@ -53,7 +54,7 @@ URxvt.pointerBlank:         true
 
 !!Source http://github.com/altercation/solarized
 
-*background: [80]#002b36
+*background: #002b36
 *foreground: #657b83
 !!*fading: 40
 *fadeColor: #002b36
