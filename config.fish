@@ -22,3 +22,5 @@ function tmux2
     set TERM screen-256color-bce
     tmux
 end
+
+set PATH /home/yan/bin/depot_tools $PATH
