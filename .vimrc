@@ -33,7 +33,9 @@ if has("gui_running")
 	set guifont=Inconsolata\ 13
 endif
 
-let g:pymode_rope = 1
+let g:pymode_rope = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_lookcup_project= 0
 
 " Documentation
 " let g:pymode_doc = 1
