@@ -80,3 +80,6 @@ hi CursorLine cterm=NONE ctermbg=darkgrey
 
 set omnifunc=syntaxcomplete#Complete
 let g:NERDTreeWinSize = 29
+
+nmap <f8> :TagbarToggle<CR>
+set tags=./tags,tags;~/
