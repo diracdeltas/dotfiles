@@ -8,14 +8,16 @@
 
 == Moving around ==
 
-b  :: beginning of word
-e  :: end of word
-0  :: beginning of line
-$  :: end of line
-^  :: first non-whitespace char of a line
-gg :: start of file
-G  :: end of file
-:n :: jump to line n
+b   :: beginning of word
+e   :: end of word
+0   :: beginning of line
+$   :: end of line
+^   :: first non-whitespace char of a line
+gg  :: start of file
+G   :: end of file
+:n  :: jump to line n
+c-u :: scroll upwards, by default half the page  
+c-d :: scroll downwards, by default half the page  
 
 
 == Deleting text ==
@@ -61,9 +63,10 @@ c-r:: redo
 
 == Search and Replace ==
 
-/p :: search for pattern p
-n  :: scan for next match in same direction
-N  :: scan for next match in opposite direction
+/p                 :: search for pattern p
+/\<exact_pattern\> :: search for exact pattern
+n  		   :: scan for next match in same direction
+N                  :: scan for next match in opposite direction
 
 :rs/foo/bar/a :: substitute foo with bar. 
 
