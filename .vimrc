@@ -10,6 +10,7 @@ call pathogen#infect()
 call pathogen#helptags()
 set modelines=0
 
+set number
 set ignorecase
 set smartcase
 set hlsearch
@@ -28,7 +29,6 @@ set noswapfile
 set ttyfast
 set ruler
 set backspace=indent,eol,start
-set relativenumber
 set laststatus=2
 
 set expandtab
@@ -44,6 +44,10 @@ vnoremap / /\v
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
+
+vnoremap <leader>1 :s#^#> #<cr>
+vnoremap <leader>3 :s#^#\##<cr>
+vnoremap <leader>2 :s#^\###<cr>
 
 set wrap
 set textwidth=79
@@ -86,7 +90,7 @@ let g:pymode_lint = 1
 let g:pymode_lint_checker = "pyflakes,pep8"
 
 " DON'T Auto check on save
-let g:pymode_lint_write = 0
+let g:pymode_lint_write = 1
 
 " Support virtualenv
 let g:pymode_virtualenv = 1
@@ -105,6 +109,16 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 let g:molokai_original = 1
 
+" Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 set shell=/bin/sh
@@ -115,6 +129,9 @@ match ExtraWhitespace /\s\+$/
 
 set cursorline
 set colorcolumn=80
+
+" JSX files
+let g:syntastic_javascript_checkers = ['eslint']
 
 hi CursorLine cterm=NONE ctermbg=darkgrey
 
