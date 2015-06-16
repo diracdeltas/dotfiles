@@ -6,7 +6,7 @@
 --   * http://sam.zoy.org/wtfpl/COPYING
 ---------------------------------------------------------------
 -- To use this module add:
---     require("scratch")
+--     local scratch = require("scratch")
 -- to the top of your rc.lua, and call:
 --     scratch.pad.set(c, width, height, sticky, screen)
 -- from a clientkeys binding, and:
@@ -33,7 +33,8 @@ local capi = {
 }
 
 -- Scratchpad: basic scratchpad manager for the awesome window manager
-module("scratch.pad")
+local pad = {} -- module scratch.pad
+
 
 local scratchpad = {}
 
@@ -48,11 +49,15 @@ end
 
 -- Scratch the focused client, or un-scratch and tile it. If another
 -- client is already scratched, replace it with the focused client.
-function set(c, width, height, sticky, screen)
+function pad.set(c, width, height, sticky, screen)
     width  = width  or 0.50
     height = height or 0.50
     sticky = sticky or false
     screen = screen or capi.mouse.screen
+
+    -- Determine signal usage in this version of awesome
+    local attach_signal = capi.client.connect_signal    or capi.client.add_signal
+    local detach_signal = capi.client.disconnect_signal or capi.client.remove_signal
 
     local function setscratch(c)
         -- Scratchpad is floating and has no titlebar
@@ -79,7 +84,7 @@ function set(c, width, height, sticky, screen)
     -- Prepare a table for storing clients,
     if not scratchpad.pad then scratchpad.pad = {}
         -- add unmanage signal for scratchpad clients
-        capi.client.add_signal("unmanage", function (c)
+        attach_signal("unmanage", function (c)
             for scr, cl in pairs(scratchpad.pad) do
                 if cl == c then scratchpad.pad[scr] = nil end
             end
@@ -103,7 +108,7 @@ end
 
 -- Move the scratchpad to the current workspace, focus and raise it
 -- when it's hidden, or hide it when it's visible.
-function toggle(screen)
+function pad.toggle(screen)
     screen = screen or capi.mouse.screen
 
     -- Check if we have a client on storage,
@@ -128,3 +133,5 @@ function toggle(screen)
         end
     end
 end
+
+return pad

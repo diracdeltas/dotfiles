@@ -7,7 +7,7 @@
 --   * http://sam.zoy.org/wtfpl/COPYING
 -------------------------------------------------------------------
 -- To use this module add:
---   require("scratch")
+--   local scratch = require("scratch")
 -- to the top of your rc.lua, and call it from a keybinding:
 --   scratch.drop(prog, vert, horiz, width, height, sticky, screen)
 --
@@ -34,7 +34,8 @@ local capi = {
 }
 
 -- Scratchdrop: drop-down applications manager for the awesome window manager
-module("scratch.drop")
+local drop = {} -- module scratch.drop
+
 
 local dropdown = {}
 
@@ -48,11 +49,15 @@ function toggle(prog, vert, horiz, width, height, sticky, screen)
     sticky = sticky or false
     screen = screen or capi.mouse.screen
 
+    -- Determine signal usage in this version of awesome
+    local attach_signal = capi.client.connect_signal    or capi.client.add_signal
+    local detach_signal = capi.client.disconnect_signal or capi.client.remove_signal
+
     if not dropdown[prog] then
         dropdown[prog] = {}
 
         -- Add unmanage signal for scratchdrop programs
-        capi.client.add_signal("unmanage", function (c)
+        attach_signal("unmanage", function (c)
             for scr, cl in pairs(dropdown[prog]) do
                 if cl == c then
                     dropdown[prog][scr] = nil
@@ -92,11 +97,11 @@ function toggle(prog, vert, horiz, width, height, sticky, screen)
 
             c:raise()
             capi.client.focus = c
-            capi.client.remove_signal("manage", spawnw)
+            detach_signal("manage", spawnw)
         end
 
         -- Add manage signal and spawn the program
-        capi.client.add_signal("manage", spawnw)
+        attach_signal("manage", spawnw)
         awful.util.spawn(prog, false)
     else
         -- Get a running client
@@ -126,4 +131,4 @@ function toggle(prog, vert, horiz, width, height, sticky, screen)
     end
 end
 
-setmetatable(_M, { __call = function(_, ...) return toggle(...) end })
+return setmetatable(drop, { __call = function(_, ...) return toggle(...) end })

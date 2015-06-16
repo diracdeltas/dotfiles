@@ -6,7 +6,9 @@
 --   * http://sam.zoy.org/wtfpl/COPYING
 ---------------------------------------------------------------
 
-require("scratch.pad")
-require("scratch.drop")
+local scratch = {} -- module scratch
 
-module("scratch")
+scratch.pad  = require("scratch.pad")
+scratch.drop = require("scratch.drop")
+
+return scratch
