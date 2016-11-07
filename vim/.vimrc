@@ -1,6 +1,6 @@
 filetype off
 filetype plugin indent off
-set runtimepath+=/usr/local/Cellar/go/1.3.3/libexec/misc/vim
+"set runtimepath+=/usr/local/Cellar/go/1.3.3/libexec/misc/vim
 filetype plugin indent on
 syntax on
 
@@ -8,9 +8,8 @@ set nocompatible
 set t_Co=16
 call pathogen#infect()
 call pathogen#helptags()
-set modelines=0
 
-set number
+"set number
 set ignorecase
 set smartcase
 set hlsearch
@@ -107,7 +106,7 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " Don't autofold code
 let g:pymode_folding = 0
-let g:molokai_original = 1
+" let g:molokai_original = 1
 
 " Syntastic settings
 set statusline+=%#warningmsg#
@@ -116,10 +115,15 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_javascript_checkers = ['standard']
 
-let g:hybrid_use_Xresources = 1
+" vim-javascript
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+
+" let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 set shell=/bin/sh
 
@@ -130,14 +134,15 @@ match ExtraWhitespace /\s\+$/
 set cursorline
 set colorcolumn=80
 
-" JSX files
-let g:syntastic_javascript_checkers = ['eslint']
-
 hi CursorLine cterm=NONE ctermbg=darkgrey
 
-set omnifunc=syntaxcomplete#Complete
-let g:NERDTreeWinSize = 29
+" set omnifunc=syntaxcomplete#Complete
+" let g:NERDTreeWinSize = 29
 
-nmap <f8> :TagbarToggle<CR>
+" nmap <f8> :TagbarToggle<CR>
 set tags=./tags,tags;~/
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
+
+" Autoformat js files
+" autocmd bufwritepost *.js silent !standard % --format
+set autoread
