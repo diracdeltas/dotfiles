@@ -1,0 +1,26 @@
+#!/bin/sh
+
+key="$1"
+
+if [ -z "$key" ]; then
+    echo "Usage: $0 <AESKEY> [<PASSWORD-HASH>]"
+    exit 1
+fi
+
+# if password has given, verify it
+if [ -n "$2" ]; then
+    # PAM appends \0 at the end
+    hash=`head -c -1 | openssl dgst -sha256 -r | cut -f1 -d ' '`
+    if [ "x$2" != "x$hash" ]; then
+        exit 1
+    fi
+fi
+
+challenge=`head -c63 /dev/urandom | xxd -c 63 -ps`
+# You may need to adjust slot number and USB VM name here
+response=`qvm-run -u root --nogui -p sys-usb "ykchalresp -2 -x $challenge"`
+
+correct_response=`echo $challenge | xxd -r -ps | openssl dgst -sha1 -macopt hexkey:$key -mac HMAC -r | cut -f1 -d ' '`
+
+test "x$correct_response" = "x$response"
+exit $?
