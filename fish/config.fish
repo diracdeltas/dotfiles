@@ -1,26 +1,3 @@
-function vim-help
-    vim ~/vim-help.txt
-end
-
-function xmonad-help
-    vim ~/xmonad-help.txt
-end
-
-function tomsay
-    cowsay -f tom
-end
-
-function gtfo
-    gnome-session-quit
-end
-
-function gdisplay
-    gnome-control-center display
-end
-
-function tmux2
-    set TERM screen-256color-bce
-    tmux
-end
-
-set PATH /home/yan/bin/depot_tools $PATH
+. ~/.config/fish/aliases.fish
+set -gx PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/sbin /usr/local/opt/ccache/libexec /Users/yan/.npm-packages/bin /Users/yan/.cargo/bin
+set -gx NODE_PATH /Users/yan/.npm-packages/lib/node_modules
