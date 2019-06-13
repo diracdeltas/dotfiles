@@ -31,13 +31,14 @@ set backspace=indent,eol,start
 set laststatus=2
 
 set expandtab
-set smarttab
-set tabstop=4
-set shiftwidth=4
+"set smarttab
+set tabstop=2
+set shiftwidth=2
 
 let mapleader = ","
 set gdefault
 set showmatch
+set nomodeline
 nnoremap / /\v
 vnoremap / /\v
 nnoremap <leader><space> :noh<cr>
@@ -119,8 +120,8 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['standard']
 
 " vim-javascript
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
+" let g:javascript_plugin_jsdoc = 1
+" let g:javascript_plugin_flow = 1
 
 " let g:hybrid_use_Xresources = 1
 colorscheme hybrid
