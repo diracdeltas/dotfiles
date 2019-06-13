@@ -65,7 +65,6 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>q gqip
 nnoremap <leader>v V`]
 
-set modeline
 au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
 au FileType javascript setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 au FileType sh setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
