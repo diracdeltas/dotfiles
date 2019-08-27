@@ -38,7 +38,6 @@ set shiftwidth=2
 let mapleader = ","
 set gdefault
 set showmatch
-set nomodeline
 nnoremap / /\v
 vnoremap / /\v
 nnoremap <leader><space> :noh<cr>
@@ -76,38 +75,6 @@ if has("gui_running")
 	set guifont=Inconsolata\ 13
 endif
 
-let g:pymode_rope = 0
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_lookcup_project = 0
-
-" Documentation
-" let g:pymode_doc = 1
-" let g:pymode_doc_key = 'K'
-
-"Linting
-let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
-
-" DON'T Auto check on save
-let g:pymode_lint_write = 1
-
-" Support virtualenv
-let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" Don't autofold code
-let g:pymode_folding = 0
-" let g:molokai_original = 1
-
 " Syntastic settings
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -118,6 +85,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_python_checkers=['flake8']
 
 " vim-javascript
 " let g:javascript_plugin_jsdoc = 1
@@ -146,3 +114,5 @@ autocmd FileType go autocmd BufWritePre <buffer> Fmt
 " Autoformat js files
 " autocmd bufwritepost *.js silent !standard % --format
 set autoread
+set nomodeline
+set modelines=0
