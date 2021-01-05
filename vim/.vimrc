@@ -1,13 +1,9 @@
-filetype off
-filetype plugin indent off
 "set runtimepath+=/usr/local/Cellar/go/1.3.3/libexec/misc/vim
 filetype plugin indent on
 syntax on
 
 set nocompatible
 set t_Co=16
-call pathogen#infect()
-call pathogen#helptags()
 
 "set number
 set ignorecase
